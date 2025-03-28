@@ -10,7 +10,7 @@ docker build -t stable-diffusion-webui .
 ```
 Once done, you can start the container as:
 ```
-docker run -d -p 7860:7860 --name sdwebui stable-diffusion-webui  
+docker run -d -p 7860:7860 -v sdwebui-outputs:/home/automatic/stable-diffusion-webui/outputs --name sdwebui stable-diffusion-webui  
 ```
 Now you have to wait until all the data is downloaded. You can check the progress using the docker command:  
   

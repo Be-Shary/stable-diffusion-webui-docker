@@ -14,6 +14,8 @@ EXPOSE 7860/tcp
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+VOLUME /home/automatic/stable-diffusion-webui/outputs
+
 USER automatic
 
 ENTRYPOINT ["/entrypoint.sh"]
