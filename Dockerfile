@@ -6,15 +6,21 @@ RUN useradd -m automatic
 WORKDIR /home/automatic/
 
 RUN cd /home/automatic/
-RUN wget -q https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/master/webui.sh
-RUN chmod +x webui.sh
+RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+RUN cd stable-diffusion-webui
+RUN chmod +x /home/automatic/stable-diffusion-webui/webui.sh
+RUN python3 -m venv /home/automatic/stable-diffusion-webui/venv
+RUN /home/automatic/stable-diffusion-webui/venv/bin/python -m pip install --upgrade pip
+RUN /home/automatic/stable-diffusion-webui/venv/bin/python -m pip install -r /home/automatic/stable-diffusion-webui/requirements.txt
+RUN touch /home/automatic/webui.log
+RUN chown -R automatic:automatic /home/automatic/*
+
+VOLUME /home/automatic/stable-diffusion-webui/
 
 EXPOSE 7860/tcp
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-VOLUME /home/automatic/stable-diffusion-webui/outputs
 
 USER automatic
 
